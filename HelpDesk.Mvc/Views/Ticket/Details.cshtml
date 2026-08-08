@@ -4,44 +4,269 @@
     ViewData["Title"] = "Ticket Details";
 }
 
-<h2>Ticket Details</h2>
+<div class="details-page">
 
-<table class="table table-bordered">
-    <tr>
-        <th>Title</th>
-        <td>@Model.Title</td>
-    </tr>
+    <!-- HEADER -->
 
-    <tr>
-        <th>Description</th>
-        <td>@Model.Description</td>
-    </tr>
+    <div class="details-page-header">
 
-    <tr>
-        <th>Priority</th>
-        <td>@Model.Priority</td>
-    </tr>
+        <div>
+            <div class="small-label">SUPPORT TICKET</div>
 
-    <tr>
-        <th>Status</th>
-        <td>@Model.Status</td>
-    </tr>
+            <h1 class="page-title">
+                Ticket Details
+            </h1>
 
-    <tr>
-        <th>Raised By</th>
-        <td>@Model.RaisedBy</td>
-    </tr>
+            <p class="page-subtitle">
+                View the complete information for this support request.
+            </p>
+        </div>
 
-    <tr>
-        <th>Created Date</th>
-        <td>@Model.CreatedDate.ToString("dd/MM/yyyy")</td>
-    </tr>
-</table>
+        <a asp-controller="Ticket"
+           asp-action="Index"
+           class="back-btn">
+            ← Back to Dashboard
+        </a>
 
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
-    Edit
-</a>
+    </div>
 
-<a asp-action="Index" class="btn btn-secondary">
-    Back
-</a>
+
+    <!-- TICKET CARD -->
+
+    <div class="custom-card ticket-details-card">
+
+        <!-- TOP -->
+
+        <div class="ticket-details-top">
+
+            <div class="ticket-details-identity">
+
+                <div class="ticket-large-icon">
+                    🎫
+                </div>
+
+                <div>
+
+                    <div class="ticket-number">
+                        TICKET #@Model.Id
+                    </div>
+
+                    <h2>
+                        @Model.Title
+                    </h2>
+
+                    <div class="ticket-created">
+                        Created
+                        @Model.CreatedDate.ToString("dd MMMM yyyy, hh:mm tt")
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="ticket-status-area">
+
+                <span class="status-badge @GetStatusClass(Model.Status)">
+                    @GetStatusIcon(Model.Status)
+                    @Model.Status
+                </span>
+
+                <span class="priority-badge @GetPriorityClass(Model.Priority)">
+                    @Model.Priority Priority
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- DIVIDER -->
+
+        <div class="details-divider"></div>
+
+
+        <!-- INFORMATION -->
+
+        <div class="row g-4">
+
+            <!-- DESCRIPTION -->
+
+            <div class="col-lg-8">
+
+                <div class="details-section">
+
+                    <div class="details-section-label">
+                        DESCRIPTION
+                    </div>
+
+                    <div class="description-box">
+
+                        @if (string.IsNullOrWhiteSpace(Model.Description))
+                        {
+                            <span class="empty-description">
+                                No description was provided.
+                            </span>
+                        }
+                        else
+                        {
+                            @Model.Description
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TICKET INFO -->
+
+            <div class="col-lg-4">
+
+                <div class="details-section">
+
+                    <div class="details-section-label">
+                        TICKET INFORMATION
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            👤
+                        </div>
+
+                        <div>
+
+                            <div class="info-label">
+                                Raised By
+                            </div>
+
+                            <div class="info-value">
+                                @Model.RaisedBy
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            ⚡
+                        </div>
+
+                        <div>
+
+                            <div class="info-label">
+                                Priority
+                            </div>
+
+                            <div class="info-value">
+                                @Model.Priority
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            📅
+                        </div>
+
+                        <div>
+
+                            <div class="info-label">
+                                Created
+                            </div>
+
+                            <div class="info-value">
+                                @Model.CreatedDate.ToString("dd MMM yyyy")
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="details-actions">
+
+            <a asp-controller="Ticket"
+               asp-action="Index"
+               class="cancel-btn">
+                ← Dashboard
+            </a>
+
+            <div class="details-action-right">
+
+                <a asp-controller="Ticket"
+                   asp-action="Edit"
+                   asp-route-id="@Model.Id"
+                   class="edit-ticket-btn">
+                    ✎ Edit Ticket
+                </a>
+
+                <a asp-controller="Ticket"
+                   asp-action="Delete"
+                   asp-route-id="@Model.Id"
+                   class="delete-ticket-btn">
+                    🗑 Delete
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@functions
+{
+    string GetStatusClass(string? status)
+    {
+        return status?.ToLower() switch
+        {
+            "open" => "status-open",
+            "in progress" => "status-progress",
+            "closed" => "status-closed",
+            _ => "status-default"
+        };
+    }
+
+    string GetStatusIcon(string? status)
+    {
+        return status?.ToLower() switch
+        {
+            "open" => "●",
+            "in progress" => "◐",
+            "closed" => "✓",
+            _ => "•"
+        };
+    }
+
+    string GetPriorityClass(string? priority)
+    {
+        return priority?.ToLower() switch
+        {
+            "high" => "priority-high",
+            "medium" => "priority-medium",
+            "low" => "priority-low",
+            _ => "priority-default"
+        };
+    }
+}

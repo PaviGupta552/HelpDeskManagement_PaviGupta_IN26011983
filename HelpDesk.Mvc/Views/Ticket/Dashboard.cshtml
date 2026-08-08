@@ -4,48 +4,58 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h2>Help Desk Dashboard</h2>
-
-<div class="row">
-
-    <div class="col-md-3">
-        <div class="card text-center bg-primary text-white mb-3">
-            <div class="card-body">
-                <h3>@Model.TotalTickets</h3>
-                <p>Total Tickets</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card text-center bg-success text-white mb-3">
-            <div class="card-body">
-                <h3>@Model.OpenTickets</h3>
-                <p>Open</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card text-center bg-warning mb-3">
-            <div class="card-body">
-                <h3>@Model.InProgressTickets</h3>
-                <p>In Progress</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card text-center bg-danger text-white mb-3">
-            <div class="card-body">
-                <h3>@Model.ClosedTickets</h3>
-                <p>Closed</p>
-            </div>
-        </div>
-    </div>
-
+<div class="card-panel hero-panel">
+    <div class="hero-title">Welcome back. Here is the pulse of your support desk.</div>
+    <p class="hero-text">
+        Track what is open, what is moving, and what is already closed.
+        The focus is on clarity, speed, and a calmer support workflow.
+    </p>
 </div>
 
-<a asp-action="Index" class="btn btn-primary">
-    View All Tickets
-</a>
+<div class="metric-grid">
+    <div class="metric-card">
+        <div class="metric-label">Total Tickets</div>
+        <div class="metric-value metric-total">@Model.TotalTickets</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-label">Open</div>
+        <div class="metric-value metric-open">@Model.OpenTickets</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-label">In Progress</div>
+        <div class="metric-value metric-progress">@Model.InProgressTickets</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-label">Closed</div>
+        <div class="metric-value metric-closed">@Model.ClosedTickets</div>
+    </div>
+</div>
+
+<div class="card-panel page-card">
+    <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center">
+        <div>
+            <h4 class="mb-1">Quick Actions</h4>
+            <div class="text-muted">Jump straight into ticket handling.</div>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+            <a asp-action="Index" class="btn btn-primary">View Tickets</a>
+            <a asp-action="Create" class="btn btn-success">Raise Ticket</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

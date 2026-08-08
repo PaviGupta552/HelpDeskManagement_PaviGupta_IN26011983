@@ -3,69 +3,119 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HelpDesk.Mvc</title>
+
+    <title>@ViewData["Title"] - Help Desk</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HelpDesk.Mvc.styles.css" asp-append-version="true" />
 </head>
+
 <body>
+
+    <!-- NAVBAR -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HelpDesk.Mvc</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg helpdesk-navbar">
+            <div class="container-fluid px-4">
+
+                <!-- LOGO -->
+                <a class="navbar-brand helpdesk-brand"
+                   asp-controller="Ticket"
+                   asp-action="Index">
+
+                    <div class="brand-logo">
+                        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="8" y="10" width="48" height="44" rx="12"
+                                  fill="currentColor" opacity="0.15" />
+                            <path d="M18 22h28M18 32h20M18 42h13"
+                                  stroke="currentColor"
+                                  stroke-width="4"
+                                  stroke-linecap="round" />
+                            <circle cx="45" cy="43" r="7"
+                                    fill="currentColor" />
+                            <path d="M42 43l2 2 4-5"
+                                  stroke="white"
+                                  stroke-width="2.5"
+                                  fill="none"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                        </svg>
+                    </div>
+
+                    <span>Help Desk</span>
+                </a>
+
+                <!-- MOBILE BUTTON -->
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <!-- NAVIGATION -->
+                <div class="collapse navbar-collapse" id="mainNavigation">
+
+                    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
+                            <a class="nav-link"
                                asp-controller="Ticket"
-                               asp-action="Dashboard">
+                               asp-action="Index">
+                                <span class="nav-icon">⌂</span>
                                 Dashboard
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark"
+                            <a class="nav-link"
                                asp-controller="Ticket"
-                               asp-action="Index">
-                                Tickets
+                               asp-action="Create">
+                                <span class="nav-icon">＋</span>
+                                New Ticket
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-controller="Ticket"
-                               asp-action="Index">
-                                Tickets
-                            </a>
-                        </li>
+
                     </ul>
+
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - HelpDesk.Mvc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container-fluid px-4 px-lg-5">
+
+            @RenderBody()
+
+        </div>
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="helpdesk-footer">
+        <div class="container-fluid px-4 px-lg-5">
+            <div class="footer-content">
+
+                <div>
+                    <strong>Help Desk</strong>
+                    <span> • Support made simple.</span>
+                </div>
+
+                <div>
+                    © @DateTime.Now.Year Help Desk
+                </div>
+
+            </div>
         </div>
     </footer>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

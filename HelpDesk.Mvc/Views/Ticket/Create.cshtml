@@ -1,60 +1,212 @@
 ﻿@model HelpDesk.Mvc.Models.Ticket
 
 @{
-    ViewData["Title"] = "Raise New Ticket";
+    ViewData["Title"] = "Create Ticket";
 }
 
-<h2>Raise New Ticket</h2>
+<div class="form-page">
 
-<form asp-action="Create" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <!-- Header -->
 
-    <div class="mb-3">
-        <label asp-for="Title" class="form-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
+    <div class="form-page-header">
 
-    <div class="mb-3">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+        <div>
+            <div class="small-label">SUPPORT REQUEST</div>
 
-    <div class="mb-3">
-        <label asp-for="Priority" class="form-label"></label>
-        <select asp-for="Priority" class="form-select">
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-        </select>
-        <span asp-validation-for="Priority" class="text-danger"></span>
+            <h1 class="page-title">
+                Create a New Ticket
+            </h1>
 
+            <p class="page-subtitle">
+                Tell us what you need help with and we'll take it from there.
+            </p>
+        </div>
+
+        <a asp-controller="Ticket"
+           asp-action="Index"
+           class="back-btn">
+            ← Back to Dashboard
+        </a>
 
     </div>
 
-    <div class="mb-3">
-        <label asp-for="Status" class="form-label"></label>
-        <select asp-for="Status" class="form-select">
-            <option>Open</option>
-            <option>In Progress</option>
-            <option>Closed</option>
-        </select>
-        <span asp-validation-for="Status" class="text-danger"></span>
+
+    <!-- Form Card -->
+
+    <div class="custom-card ticket-form-card">
+
+        <form asp-action="Create" method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-message">
+            </div>
+
+
+            <!-- Title -->
+
+            <div class="form-group-custom">
+
+                <label asp-for="Title">
+                    Ticket Title
+                </label>
+
+                <input asp-for="Title"
+                       class="form-control-custom"
+                       placeholder="e.g. Unable to login to my account" />
+
+                <span asp-validation-for="Title"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div class="form-group-custom">
+
+                <label asp-for="Description">
+                    Description
+                </label>
+
+                <textarea asp-for="Description"
+                          class="form-control-custom textarea-custom"
+                          placeholder="Describe your issue in detail..."></textarea>
+
+                <span asp-validation-for="Description"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- Two columns -->
+
+            <div class="row g-4">
+
+                <!-- Priority -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group-custom">
+
+                        <label asp-for="Priority">
+                            Priority
+                        </label>
+
+                        <select asp-for="Priority"
+                                class="form-control-custom">
+
+                            <option value="">
+                                Select priority
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="Priority"
+                              class="field-validation">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group-custom">
+
+                        <label asp-for="Status">
+                            Status
+                        </label>
+
+                        <select asp-for="Status"
+                                class="form-control-custom">
+
+                            <option value="Open">
+                                Open
+                            </option>
+
+                            <option value="In Progress">
+                                In Progress
+                            </option>
+
+                            <option value="Closed">
+                                Closed
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="Status"
+                              class="field-validation">
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Raised By -->
+
+            <div class="form-group-custom">
+
+                <label asp-for="RaisedBy">
+                    Raised By
+                </label>
+
+                <input asp-for="RaisedBy"
+                       class="form-control-custom"
+                       placeholder="Enter your name" />
+
+                <span asp-validation-for="RaisedBy"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="form-actions">
+
+                <a asp-controller="Ticket"
+                   asp-action="Index"
+                   class="cancel-btn">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn-helpdesk">
+                    🎫 Create Ticket
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
 
-    <div class="mb-3">
-        <label asp-for="RaisedBy" class="form-label"></label>
-        <input asp-for="RaisedBy" class="form-control" />
-        <span asp-validation-for="RaisedBy" class="text-danger"></span>
-    </div>
+</div>
 
-    <button type="submit" class="btn btn-success">
-        Save Ticket
-    </button>
 
-    <a asp-action="Index" class="btn btn-secondary">
-        Cancel
-    </a>
-
-</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
